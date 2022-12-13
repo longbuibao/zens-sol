@@ -5,6 +5,9 @@ const minMaxSum = (array) => {
   const max = totalSum - Math.min(...array)
   //min sum of 4 elements will be the total sum of array minus the largest element
   const min = totalSum - Math.max(...array)
+
+  // return value for testing purpose, can change to console.log
+  //   console.log(min, max)
   return { min, max }
 }
 exports.minMaxSum = minMaxSum
