@@ -1,1 +1,2 @@
-const miniMaxSum = (array) => {}
+const minMaxSum = (array) => {}
+exports.miniMaxSum = minMaxSum
