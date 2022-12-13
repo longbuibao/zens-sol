@@ -1,0 +1,15 @@
+{
+  "name": "zens",
+  "version": "1.0.0",
+  "description": "",
+  "main": "mini-max-sum.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^29.3.1"
+  }
+}
