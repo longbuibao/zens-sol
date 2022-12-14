@@ -17,6 +17,12 @@ const vote = async (userId, jokeId, isLike) => {
   const likedId = crypto.randomBytes(16).toString("hex");
 
   if (!userId || !jokeId) return null;
+  const user = await prisma.user.findFirst({
+    where: {
+      id: userId,
+    },
+  });
+  if (!user) return null;
 
   const voted = await prisma.likes.create({
     data: {
