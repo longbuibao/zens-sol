@@ -37,15 +37,21 @@ const App = () => {
 
   const hanldeVote = async (joke, isLike) => {
     const userId = getCookie("userId");
+
+    try {
+      await axiosClient.post("/vote-joke", {
+        joke,
+        userId,
+        isLike,
+      });
+    } catch (error) {
+      console.log(error);
+      alert("something wrong");
+    }
     const response = await axiosClient.get("/joke", {
       withCredentials: true,
     });
     setJoke(response.data);
-    axiosClient.post("/vote-joke", {
-      joke,
-      userId,
-      isLike,
-    });
   };
 
   return (
