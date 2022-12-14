@@ -35,9 +35,17 @@ const App = () => {
     if (joke && Object.keys(joke).length === 0) setIsEndJoke(true);
   }, [joke]);
 
-  const hanldeVote = (joke, isLike) => {
+  const hanldeVote = async (joke, isLike) => {
     const userId = getCookie("userId");
-    console.log({ joke, userId, isLike });
+    const response = await axiosClient.get("/joke", {
+      withCredentials: true,
+    });
+    setJoke(response.data);
+    axiosClient.post("/vote-joke", {
+      joke,
+      userId,
+      isLike,
+    });
   };
 
   return (
