@@ -11,7 +11,7 @@ datasource db {
 }
 
 model Joke {
-  id        Int      @id @default(autoincrement())
+  id        String   @id
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   content   String
@@ -19,14 +19,14 @@ model Joke {
 }
 
 model Likes {
-  id     Int  @id @default(autoincrement())
-  jokeId Int
-  userId Int
-  user   User @relation(fields: [userId], references: [id])
-  joke   Joke @relation(fields: [jokeId], references: [id])
+  id     String @id
+  jokeId String
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+  joke   Joke   @relation(fields: [jokeId], references: [id])
 }
 
 model User {
-  id    Int     @id @default(autoincrement())
+  id    String  @id
   Likes Likes[]
 }
