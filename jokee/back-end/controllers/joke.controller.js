@@ -14,7 +14,13 @@ const getJokeNotInIds = async (req, res) => {
 };
 
 const voteJoke = async (req, res) => {
-  console.log(req.body);
+  const userId = req.body.userId;
+  const jokeId = req.body.joke.id;
+  const isLike = req.body.isLike;
+
+  const voted = await jokeService.vote(userId, jokeId, isLike);
+  if (!voted) return res.status(400).send("SOMETHING WRONG");
+  res.send(voted);
 };
 
 module.exports = {

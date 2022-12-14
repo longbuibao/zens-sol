@@ -1,21 +1,35 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
+const crypto = require("crypto");
 
 const getJokesNotInIds = async (ids) => {
-  try {
-    const joke = await prisma.joke.findFirst({
-      where: {
-        id: {
-          notIn: ids,
-        },
+  const joke = await prisma.joke.findFirst({
+    where: {
+      id: {
+        notIn: ids,
       },
-    });
-    return joke;
-  } catch (error) {
-    console.log(error);
-  }
+    },
+  });
+  return joke;
+};
+
+const vote = async (userId, jokeId, isLike) => {
+  const likedId = crypto.randomBytes(16).toString("hex");
+
+  if (!userId || !jokeId) return null;
+
+  const voted = await prisma.likes.create({
+    data: {
+      id: likedId,
+      isLike,
+      jokeId,
+      userId,
+    },
+  });
+  return voted;
 };
 
 module.exports = {
   getJokesNotInIds,
+  vote,
 };
