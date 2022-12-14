@@ -4,6 +4,7 @@ import styled from "styled-components";
 import Button from "./components/Button";
 import Text from "./components/Text";
 import axiosClient from "./api/aixos";
+import getCookie from "./utils/get-cookie";
 
 const MainApp = styled.div`
   display: flex;
@@ -12,6 +13,7 @@ const MainApp = styled.div`
 `;
 const App = () => {
   const [joke, setJoke] = useState();
+  const [isEndJoke, setIsEndJoke] = useState(false);
 
   useEffect(() => {
     const getJoke = async () => {
@@ -24,22 +26,38 @@ const App = () => {
     getJoke();
   }, []);
 
+  useEffect(() => {
+    if (joke && Object.keys(joke).length === 0) setIsEndJoke(true);
+  }, [joke]);
+
+  const hanldeVote = () => {
+    alert(getCookie("userId"));
+  };
+
   return (
     <MainApp>
       <Text>
-        {joke === undefined ? (
-          <h5>LOADING...</h5>
-        ) : Object.keys(joke).length === 0 ? (
-          "That's all the jokes for today! Come back another day!"
-        ) : (
-          joke.content
-        )}
+        {joke === undefined
+          ? "LOADING..."
+          : isEndJoke
+          ? "That's all the jokes for today! Come back another day!"
+          : joke.content}
       </Text>
       <div>
-        <Button textColor="white" bgColor="#2c7edb">
+        <Button
+          disabled={isEndJoke}
+          textColor={isEndJoke ? "black" : "white"}
+          bgColor={isEndJoke ? "#989c99" : "#2c7edb"}
+          onClick={hanldeVote}
+        >
           This is funny!
         </Button>
-        <Button textColor="white" bgColor="#29b363">
+        <Button
+          disabled={isEndJoke}
+          textColor={isEndJoke ? "black" : "white"}
+          bgColor={isEndJoke ? "#989c99" : "#29b363"}
+          onClick={hanldeVote}
+        >
           This is not funny.
         </Button>
       </div>
