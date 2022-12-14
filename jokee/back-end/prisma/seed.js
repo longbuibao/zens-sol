@@ -1,6 +1,7 @@
 /* eslint-disable max-len */
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
+const crypto = require("crypto");
 
 async function main() {
   const jokes = [
@@ -10,11 +11,12 @@ async function main() {
     `The teacher asked Jimmy, "Why is your cat at school today Jimmy?" Jimmy replied crying, "Because I heard my daddy tell my mommy, 'I am going to eat that pussy once Jimmy leaves for school today!'"`,
     `A housewife, an accountant and a lawyer were asked "How much is 2+2?" The housewife replies: "Four!". The accountant says: "I think it's either 3 or 4. Let me run those figures through my spreadsheet one more time." The lawyer pulls the drapes, dims the lights and asks in a hushed voice, "How much do you want it to be?"`,
   ];
+  crypto.randomBytes(16).toString("hex");
 
   await Promise.all(
     jokes.map((joke) => {
       return prisma.joke.createMany({
-        data: { content: joke },
+        data: { content: joke, id: crypto.randomBytes(16).toString("hex") },
       });
     })
   );
