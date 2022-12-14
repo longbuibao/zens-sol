@@ -6,6 +6,11 @@ import Text from "./components/Text";
 import axiosClient from "./api/aixos";
 import getCookie from "./utils/get-cookie";
 
+const ACTION = {
+  LIKE: true,
+  DISLIKE: false,
+};
+
 const MainApp = styled.div`
   display: flex;
   flex-direction: column;
@@ -30,8 +35,9 @@ const App = () => {
     if (joke && Object.keys(joke).length === 0) setIsEndJoke(true);
   }, [joke]);
 
-  const hanldeVote = () => {
-    alert(getCookie("userId"));
+  const hanldeVote = (joke, isLike) => {
+    const userId = getCookie("userId");
+    console.log({ joke, userId, isLike });
   };
 
   return (
@@ -48,7 +54,7 @@ const App = () => {
           disabled={isEndJoke}
           textColor={isEndJoke ? "black" : "white"}
           bgColor={isEndJoke ? "#989c99" : "#2c7edb"}
-          onClick={hanldeVote}
+          onClick={() => hanldeVote(joke, ACTION.LIKE)}
         >
           This is funny!
         </Button>
@@ -56,7 +62,7 @@ const App = () => {
           disabled={isEndJoke}
           textColor={isEndJoke ? "black" : "white"}
           bgColor={isEndJoke ? "#989c99" : "#29b363"}
-          onClick={hanldeVote}
+          onClick={() => hanldeVote(joke, ACTION.DISLIKE)}
         >
           This is not funny.
         </Button>
