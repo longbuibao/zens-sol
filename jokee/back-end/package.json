@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "prisma:create:migrate": "npx prisma migrate dev --name",
+    "prisma:deploy": "npx prisma migrate deploy",
     "prisma:seed": "npx prisma db seed"
   },
   "prisma": {

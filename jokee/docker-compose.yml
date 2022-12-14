@@ -1,18 +1,47 @@
-version: '3.5'
+version: '2.5'
 
 services:
-  postgres:
-    container_name: postgres
+  db:
+    container_name: db
     image: postgres
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-postgres}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-password}
       PGDATA: /data/postgres
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     volumes:
        - postgres:/data/postgres
     ports:
       - "5432:5432"
-    restart: unless-stopped
+    networks:
+      - app
+  back_end:
+    depends_on:
+      - db
+    container_name: back_end
+    build:
+      context: back-end
+    ports:
+      - "3000"
+    networks:
+      - app
+  front_end:
+    depends_on:
+      - back_end
+    container_name: front_end
+    build:
+      context: front-end
+    ports:
+      - "3000:80"
+    networks:
+      - app
 
 volumes:
     postgres:
+networks:
+  app:
+    driver: bridge
