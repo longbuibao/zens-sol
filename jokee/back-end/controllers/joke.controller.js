@@ -13,6 +13,11 @@ const getJokeNotInIds = async (req, res) => {
   return res.send(joke);
 };
 
+const voteJoke = async (req, res) => {
+  console.log(req.body);
+};
+
 module.exports = {
   getJokeNotInIds,
+  voteJoke,
 };
