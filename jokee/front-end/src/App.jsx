@@ -15,12 +15,15 @@ const App = () => {
 
   useEffect(() => {
     const getJokes = async () => {
-      const response = await axiosClient.get("/joke/all");
+      const response = await axiosClient.get("/joke", {
+        withCredentials: true,
+      });
+      console.log(response.data);
       setJokes(response.data);
     };
 
     getJokes();
-  });
+  }, []);
 
   return (
     <MainApp>
