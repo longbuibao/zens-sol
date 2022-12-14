@@ -8,6 +8,7 @@ const getJokeNotInIds = async (req, res) => {
 
   const idsToBeSetCookie = req.jokeIds.concat(joke.id);
   res.cookie("jokeIds", JSON.stringify(idsToBeSetCookie));
+  res.cookie("userId", req.userId);
 
   return res.send(joke);
 };
