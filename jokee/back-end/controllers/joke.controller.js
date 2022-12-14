@@ -19,7 +19,9 @@ const voteJoke = async (req, res) => {
   const isLike = req.body.isLike;
 
   const voted = await jokeService.vote(userId, jokeId, isLike);
-  if (!voted) return res.status(400).send("SOMETHING WRONG");
+  if (!voted) {
+    return res.status(400).send();
+  }
   res.send(voted);
 };
 
