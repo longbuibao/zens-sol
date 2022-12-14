@@ -35,7 +35,7 @@ const App = () => {
     if (joke && Object.keys(joke).length === 0) setIsEndJoke(true);
   }, [joke]);
 
-  const hanldeVote = async (joke, isLike) => {
+  const voteHandler = async (joke, isLike) => {
     const userId = getCookie("userId");
 
     try {
@@ -46,7 +46,7 @@ const App = () => {
       });
     } catch (error) {
       console.log(error);
-      alert("something wrong");
+      return alert("something wrong");
     }
     const response = await axiosClient.get("/joke", {
       withCredentials: true,
@@ -68,7 +68,7 @@ const App = () => {
           disabled={isEndJoke}
           textColor={isEndJoke ? "black" : "white"}
           bgColor={isEndJoke ? "#989c99" : "#2c7edb"}
-          onClick={() => hanldeVote(joke, ACTION.LIKE)}
+          onClick={() => voteHandler(joke, ACTION.LIKE)}
         >
           This is funny!
         </Button>
@@ -76,7 +76,7 @@ const App = () => {
           disabled={isEndJoke}
           textColor={isEndJoke ? "black" : "white"}
           bgColor={isEndJoke ? "#989c99" : "#29b363"}
-          onClick={() => hanldeVote(joke, ACTION.DISLIKE)}
+          onClick={() => voteHandler(joke, ACTION.DISLIKE)}
         >
           This is not funny.
         </Button>
