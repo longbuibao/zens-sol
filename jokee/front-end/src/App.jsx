@@ -11,23 +11,30 @@ const MainApp = styled.div`
   align-items: center;
 `;
 const App = () => {
-  const [jokes, setJokes] = useState([]);
+  const [joke, setJoke] = useState();
 
   useEffect(() => {
-    const getJokes = async () => {
+    const getJoke = async () => {
       const response = await axiosClient.get("/joke", {
         withCredentials: true,
       });
-      console.log(response.data);
-      setJokes(response.data);
+      setJoke(response.data);
     };
 
-    getJokes();
+    getJoke();
   }, []);
 
   return (
     <MainApp>
-      <Text>{jokes.length === 0 ? "LOADING" : jokes[0].content}</Text>
+      <Text>
+        {joke === undefined ? (
+          <h5>LOADING...</h5>
+        ) : Object.keys(joke).length === 0 ? (
+          "That's all the jokes for today! Come back another day!"
+        ) : (
+          joke.content
+        )}
+      </Text>
       <div>
         <Button textColor="white" bgColor="#2c7edb">
           This is funny!
