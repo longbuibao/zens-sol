@@ -24,10 +24,18 @@
 
 ### Up and running application
 
-- Move to folder `jokee` and spin up the application by running:
+- Move to folder `jokee` and create a `.env` file to connecto database. I have some default value for the `POSTGRES_USER` and `POSTGRES_PASSWORD` in `docker-compose.yml` file
+  
+```sh
+DATABASE_URL="postgresql://postgres:password@db:5432/zens?schema=public"
+```
+
+- Spin up the application by running:
 
 ```sh
-cd jokee && docker compose up -d
+docker compose up -d
 ```
 
 - Open your browser, navigate to <http://localhost:3000> and enjoy
+
+- The `Likes` table can be view by using any database client (me using DataGrip) or any tool by access `postgresql://postgres:password@db:5432/zens?schema=public`
