@@ -24,7 +24,7 @@
 
 ### Up and running application
 
-- Move to folder `jokee` and create a `.env` file to connecto database. I have some default value for the `POSTGRES_USER` and `POSTGRES_PASSWORD` in `docker-compose.yml` file
+- Move to folder `jokee/back-end` and create a `.env` file to connect to database. I have some default value for the `POSTGRES_USER` and `POSTGRES_PASSWORD` in `docker-compose.yml` file
   
 ```sh
 DATABASE_URL="postgresql://postgres:password@db:5432/zens?schema=public"
